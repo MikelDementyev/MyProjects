@@ -78,17 +78,12 @@ int main(int argc, char **argv, char **env){
 	int Count = 1, i;
 	ListOfMessage* List; 
 	List = (ListOfMessage*)malloc(sizeof(ListOfMessage));
-if(argc != 2){
-	printf("use ./prog <path>\n");
-	return 0;
-}
 
 listDir("Root", &List, &Count);
 qsort(List, Count - 2, sizeof(ListOfMessage), compare);
 FILE* file = fopen("result.txt", "w");
 	for (i = 0; i < Count - 1; i++){
 		fprintf(file, "%s", List[i].message);
-		printf("%s", List[i].message);
 	} 
 
 return 0;
