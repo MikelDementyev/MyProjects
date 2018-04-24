@@ -81,7 +81,7 @@ void listDir(char *startDir, ListOfMessage** List, int* Count){
 
 }
 
-int main(int argc, char **argv, char **env){
+int main(){
 	int Count = 1, i;
 	ListOfMessage* List; 
 	List = (ListOfMessage*)malloc(sizeof(ListOfMessage));
