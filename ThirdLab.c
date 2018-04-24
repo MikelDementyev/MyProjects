@@ -10,9 +10,16 @@ typedef struct ListOfMessage {
 	long long int number;
 } ListOfMessage;
 
-int compare(const void * x1, const void * x2)   
+int compare(const void * x1, const void * x2)
 {
-  return ( (*(ListOfMessage*)x1).number - (*(ListOfMessage*)x2).number );             
+    if((*(ListOfMessage*)x1).number - (*(ListOfMessage*)x2).number > 0){
+        return 1;
+    }
+    if((*(ListOfMessage*)x1).number - (*(ListOfMessage*)x2).number < 0){
+        return -1;
+    } else {
+        return 0;
+    }
 }
 
 int isValid(char *filename){
@@ -80,7 +87,7 @@ int main(int argc, char **argv, char **env){
 	List = (ListOfMessage*)malloc(sizeof(ListOfMessage));
 
 listDir("Root", &List, &Count);
-qsort(List, Count - 2, sizeof(ListOfMessage), compare);
+qsort(List, Count - 1, sizeof(ListOfMessage), compare);
 FILE* file = fopen("result.txt", "w");
 	for (i = 0; i < Count - 1; i++){
 		fprintf(file, "%s", List[i].message);
