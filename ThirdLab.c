@@ -27,6 +27,7 @@ int isValid(char *filename){
 }
 
 void printMessage(char* filename, ListOfMessage*** List, int** Count){
+	int i;
 	char string[100];
 	**(Count) += 1;
 	**List = realloc(**List, sizeof(ListOfMessage)* (**Count));
@@ -34,7 +35,7 @@ void printMessage(char* filename, ListOfMessage*** List, int** Count){
 	if(!f)
 		return;
 	fgets((**List)[**(Count) - 2].message, 100, f);
-	for(int i = 0; ;i++){
+	for(i = 0; ;i++){
 		string[i] = (**List)[**(Count) - 2].message[i];
 		if((**List)[**(Count) - 2].message[i+1] == ' ')
 			break;
@@ -74,7 +75,7 @@ void listDir(char *startDir, ListOfMessage** List, int* Count){
 }
 
 int main(int argc, char **argv, char **env){
-	int Count = 1;
+	int Count = 1, i;
 	ListOfMessage* List; 
 	List = (ListOfMessage*)malloc(sizeof(ListOfMessage));
 if(argc != 2){
@@ -85,7 +86,7 @@ if(argc != 2){
 listDir("Root", &List, &Count);
 qsort(List, Count - 2, sizeof(ListOfMessage), compare);
 FILE* file = fopen("result.txt", "w");
-	for (int i = 0; i < Count - 1; i++){
+	for (i = 0; i < Count - 1; i++){
 		fprintf(file, "%s", List[i].message);
 		printf("%s", List[i].message);
 	} 
