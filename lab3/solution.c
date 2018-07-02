@@ -9,12 +9,12 @@ typedef struct _file_struct file_struct;
 
 struct _file_struct
 {
-    char *file_name; 
-    char *path; 
-    char *file_name_link;  
-    int type; 
-    file_struct *next; 
-    file_struct *prev; 
+    char *file_name; // имя файла
+    char *path; //полный путь к файлу
+    char *file_name_link; // имя файла на который ссылается
+    int type; //0 - файл со ссылкой на следующий, 2 - файл тупик, 1 - минотавр
+    file_struct *next; //ссылка на следующий элемент
+    file_struct *prev; //ссылка на следующий элемент
 };
 
 file_struct* head=NULL;
@@ -26,28 +26,30 @@ void addEl(file_struct *el);
 
 void list_dir(const char *dirPath)
 {
-    DIR *dir = opendir(dirPath);    
-    if (dir) { 
-        struct dirent *de = readdir(dir); 
-        while (de) {             
-
+    DIR *dir = opendir(dirPath);    // "открываем" директорию
+    if (dir) { // если это удалось успешно
+        struct dirent *de = readdir(dir); // получаем очередной элемент открытой директории
+        while (de) {             // если это удалось
+//            printf("%s/%s\n", dirPath, de->d_name); //печатаем имя этого элемента
+            //выделяем память под строку хранящую полный путь
             char *dirPathNext = (char*) malloc( strlen(dirPath) + strlen(de->d_name) + 2 );
-
+            //формируем полный путь к файлу
             sprintf(dirPathNext, "%s/%s", dirPath, de->d_name );
 
+            //если текущий файл - каталог рекурсивно открываем его для сканирования
             if( de->d_type == DT_DIR && strstr(de->d_name, "..") == NULL && strstr(de->d_name, ".") == NULL) {
                 list_dir (dirPathNext);
             }
-
+            //если файл - файл, то вычитываем его содержимое
             if( de->d_type == DT_REG ) {
                 read_file(dirPathNext, de->d_name);
             }
-
+            //не забываем освободить память
             free(dirPathNext);
-            de = readdir(dir);      
+            de = readdir(dir);      // снова получаем очередной элемент открытой директории
         }
     }
-    closedir(dir);    
+    closedir(dir);    // не забываем "закрыть" директорию
 }
 
 void read_file(char *path, char *name) {
@@ -58,22 +60,23 @@ void read_file(char *path, char *name) {
         fscanf(fp, "%s", buff);
         if(feof(fp))
             break;
+//        printf("\t%s\n", buff); //печатаем имя этого элемента
 
         file_struct *el;
         if(strstr(buff, "@include") != NULL) {
             fscanf(fp, "%s", buff);
-
+//            printf("\t\t%s\n", buff); //печатаем имя этого элемента
             el = makeElem(path, name, buff, 0);
         }
         if(strstr(buff, "Minotaur") != NULL) {
-
+//            printf("\t\t%s\n", buff); //печатаем имя этого элемента
             el = makeElem(path, name, NULL, 1);
         }
         if(strstr(buff, "Deadlock") != NULL) {
-
+//            printf("\t\t%s\n", buff); //печатаем имя этого элемента
             el = makeElem(path, name, NULL, 2);
         }
-        addEl(el); 
+        addEl(el); //добавляем
     }
     fclose(fp);
 }
@@ -129,7 +132,7 @@ void showList()
         return;
     file_struct *temp = head;
     while (temp != NULL) {
-
+        printf("%s, %s, %s, %i\n", temp->file_name, temp->path, temp->file_name_link, temp->type);
         temp = temp->next;
     }
 }
@@ -149,14 +152,14 @@ void removeDeadloks()
             while (p != NULL) {
 
                 if(strstr(currRemName, p->file_name) != NULL || strstr(currRemName, p->file_name_link) != NULL) {
-                
+                    //Удаляем голову особым образом
                     if(p == head){
                         head = head->next;
                         free(p);
                         p = head;
                         continue;
                     }
-                
+                    //Удаляем элемент в середине
                     file_struct *t = p;
                     p->prev->next = p->next;
                     free(t);
@@ -173,6 +176,8 @@ void removeDeadloks()
 
 void makePath()
 {
+    if(head == NULL)
+        return;
     FILE *fp;
     fp = fopen("result.txt", "w");
 
@@ -183,7 +188,7 @@ void makePath()
     while ( 1 ) {
 
         if( strstr(temp->file_name, currRemName) != NULL ) {
-            
+            //printf("%s\n",temp->path);
             fprintf(fp, "%s\n", temp->path);
             free(currRemName);
             currRemName = (char *) malloc(strlen(temp->file_name_link)+1);
@@ -201,11 +206,12 @@ void makePath()
 
 int main()
 {
-    list_dir("/home/box/labyrinth");
-
+    list_dir("~/labyrinth");
+//    showList();
+//    printf("\n\n");
     removeDeadloks();
-
+//    showList();
+//    printf("\n\n");
     makePath();
     return 0;
 }
-
