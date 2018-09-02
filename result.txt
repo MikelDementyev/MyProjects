@@ -1,0 +1,11 @@
+./labyrinth/G1/g0/gT1/YU1/ckY1/file.txt
+./labyrinth/G1/g2/SFM1/N190/k40Q0/file_1456.txt
+./labyrinth/G0/W2/F332/ck21/W10u3/file_737.txt
+./labyrinth/G2/J2/QR260/S45100/c240/file_2182.txt
+./labyrinth/G1/g0/gT0/kr2/UA5/file_887.txt
+./labyrinth/G2/J2/QR260/S45101/x40n1/file_2205.txt
+./labyrinth/G0/W1/W102/y0/rw0/file_487.txt
+./labyrinth/G1/g0/gT2/z0/file_999.txt
+./labyrinth/G0/W2/F330/Fx2/K20R0/file_602.txt
+./labyrinth/G2/J2/QR260/file_2144.txt
+./labyrinth/G1/g1/gTN2/y164/file_1288.txt
