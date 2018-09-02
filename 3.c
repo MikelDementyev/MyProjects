@@ -172,7 +172,7 @@ printf("way: %s\n", way);
                                 strcpy(array_temp[pos_in_mass], all_files[i]);
        							pos_in_mass++;
        							
- 								findMinotaur("/home/admin1/labyrinth", all_files[i], all_files, array_content, array_temp, result);
+ 								findMinotaur("/home/box/labyrinth", all_files[i], all_files, array_content, array_temp, result);
             printf("res: %s\n", way);
                     
                                 return all_files[i];
@@ -213,8 +213,8 @@ int main()
          array_temp[i] = (char*)malloc(255 * sizeof(char));
     }
 
-    list_dir("/home/admin1/labyrinth", all_files, array_content, array_temp);
-
+    list_dir("/home/box/labyrinth", all_files, array_content, array_temp);
+/*
 	 for (int i = 0; i<pos; i++)
     {
         printf("a: %s\n", all_files[i]);
@@ -229,13 +229,13 @@ int main()
     {
          printf("c: %s\n", array_temp[i]);
     }
-
+*/
     char* buff = (char*)malloc(255 * sizeof(char));
     strcpy(buff, "file.txt");
 
     while (buff != NULL)
     {
-        buff = findMinotaur("/home/admin1/labyrinth", buff, all_files, array_content, array_temp, result);
+        buff = findMinotaur("/home/box/labyrinth", buff, all_files, array_content, array_temp, result);
 	
 		if (buff != NULL)
 		{
