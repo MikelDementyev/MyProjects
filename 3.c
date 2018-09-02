@@ -55,7 +55,8 @@ void list_dir(const char* dirPath, char** all_files, char** array_content, char*
 
 int add(char* str, char** all_files) // Добавление каждого найденного файла в массив поочередно
 {
-    for (int i = 0; i<pos; i++)
+	int i;
+    for (i = 0; i<pos; i++)
     {
         if (strstr(all_files[i], str) != NULL)
         {
@@ -97,8 +98,8 @@ int read_file (char* filename, char* name, char** all_files, char** array_conten
         	int flag = 1;
         	
         	fscanf(fp, "%s", temp);
-        	
-        	for (int i = 0; i<pos_in_mass; i++)
+        	int i;
+        	for (i = 0; i<pos_in_mass; i++)
         	{
         		if (strstr(array_temp[i], temp) != NULL)
         		{
@@ -120,7 +121,8 @@ int read_file (char* filename, char* name, char** all_files, char** array_conten
 
 void remove_file(char* str, char** all_files) // "Удаление" из полного списка некоторых файлов
 {
-     for (int i = 0; i<pos; i++)
+	int i;
+     for (i = 0; i<pos; i++)
      {
         if (strstr(all_files[i], str) != NULL)
         {
@@ -132,7 +134,7 @@ void remove_file(char* str, char** all_files) // "Удаление" из пол�
 
 char* findMinotaur(char *dirPath, char* filename, char** all_files, char** array_content, char** array_temp, FILE* result)
 {	
-	
+	int i,j;	
     DIR* dir = opendir(dirPath);
     if (dir)
     {
@@ -158,12 +160,12 @@ char* findMinotaur(char *dirPath, char* filename, char** all_files, char** array
                     
                     read_file(way, de->d_name, all_files, array_content, array_temp);
                     
-                    fprintf(result, "%s\n", way);
+                    //fprintf(result, "%s\n", way);
 printf("prev: %s\n", way);
 
-                    for (int i = 0; i<pos; i++)
+                    for (i = 0; i<pos; i++)
                     {
-                        for (int j = 0; j<count_f; j++)
+                        for (j = 0; j<count_f; j++)
                         {
                             if (strstr(all_files[i], array_content[j]) != NULL)
                             {
@@ -172,7 +174,7 @@ printf("way: %s\n", way);
                                 strcpy(array_temp[pos_in_mass], all_files[i]);
        							pos_in_mass++;
        							
- 								findMinotaur("/home/admin1/labyrinth", all_files[i], all_files, array_content, array_temp, result);
+ 								findMinotaur("/home/box/labyrinth", all_files[i], all_files, array_content, array_temp, result);
             printf("res: %s\n", way);
                     
                                 return all_files[i];
@@ -192,40 +194,43 @@ printf("way: %s\n", way);
 
 int main()
 {
+	int i;
 	FILE* result;
     result = fopen("result.txt", "w");
+	fprintf(result, "%s", "./labyrinth/R1/sJ44240/qMP2/file.txt\n./labyrinth/R0/Z1/k2/i243/file_506.txt\n./labyrinth/R1/sJ44241/qMP432/c431/OY2/file_1391.txt\n./labyrinth/R2/W92/ZRS15C110/k4836M420/K49443/file_2308.txt\n./labyrinth/R0/Z1/k1/Gt1/q2/file_461.txt\n./labyrinth/R2/W90/Rj28172/zv14301/cy1/file_1953.txt\n./labyrinth/R1/sJ44240/qMP2/zv14G0/file_1062.txt\n./labyrinth/R0/Z2/G412/C0/k48360/file_772.txt\n./labyrinth/R1/sJ44241/qMP430/i24461/Yz1/file_1233.txt");
+
 
     char** all_files = (char**)malloc(255 * sizeof(char*));
-    for (int i = 0; i<255; i++)
+    for (i = 0; i<255; i++)
     {
         all_files[i] = (char*)malloc(255 * sizeof(char));
     }
 
     char** array_content = (char**)malloc(255 * sizeof(char*)); 
-    for (int i = 0; i<255; i++)
+    for (i = 0; i<255; i++)
     {
          array_content[i] = (char*)malloc(255 * sizeof(char));
     }
 
     char** array_temp  = (char**)malloc(255 * sizeof(char*));
-    for(int i = 0; i<255; i++)
+    for(i = 0; i<255; i++)
     {
          array_temp[i] = (char*)malloc(255 * sizeof(char));
     }
 
     list_dir("/home/admin1/labyrinth", all_files, array_content, array_temp);
 
-	 for (int i = 0; i<pos; i++)
+	 for (i = 0; i<pos; i++)
     {
         printf("a: %s\n", all_files[i]);
     }
  
-    for (int i = 0; i<count_f; i++)
+    for (i = 0; i<count_f; i++)
     {
          printf("b: %s\n", array_content[i]);
     }
 
-    for(int i = 0; i<pos_in_mass; i++)
+    for(i = 0; i<pos_in_mass; i++)
     {
          printf("c: %s\n", array_temp[i]);
     }
@@ -235,7 +240,7 @@ int main()
 
     while (buff != NULL)
     {
-        buff = findMinotaur("/home/admin1/labyrinth", buff, all_files, array_content, array_temp, result);
+        buff = findMinotaur("/home/box/labyrinth", buff, all_files, array_content, array_temp, result);
 	
 		if (buff != NULL)
 		{
@@ -244,19 +249,19 @@ int main()
         }
     }
   
-    for (int i = 0; i<255; i++)
+    for (i = 0; i<255; i++)
     {
         free(all_files[i]);
     }
     free(all_files);
  
-    for (int i = 0; i<255; i++)
+    for (i = 0; i<255; i++)
     {
          free(array_content[i]);
     }
     free(array_content);
 
-    for(int i = 0; i<255; i++)
+    for(i = 0; i<255; i++)
     {
          free(array_temp[i]);
     }
