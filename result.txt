@@ -1,0 +1,9 @@
+./labyrinth/R1/sJ44240/qMP2/file.txt
+./labyrinth/R0/Z1/k2/i243/file_506.txt
+./labyrinth/R1/sJ44241/qMP432/c431/OY2/file_1391.txt
+./labyrinth/R2/W92/ZRS15C110/k4836M420/K49443/file_2308.txt
+./labyrinth/R0/Z1/k1/Gt1/q2/file_461.txt
+./labyrinth/R2/W90/Rj28172/zv14301/cy1/file_1953.txt
+./labyrinth/R1/sJ44240/qMP2/zv14G0/file_1062.txt
+./labyrinth/R0/Z2/G412/C0/k48360/file_772.txt
+./labyrinth/R1/sJ44241/qMP430/i24461/Yz1/file_1233.txt
